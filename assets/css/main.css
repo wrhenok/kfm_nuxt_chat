@@ -67,11 +67,6 @@ p {
   margin: 0;
 }
 
-pre code {
-  background-color: #b11d1d;
-  padding: 10px;
-}
-
 pre.hljs code {
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   font-size: 14px;

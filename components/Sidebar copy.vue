@@ -1,3 +1,4 @@
+<!-- components/Sidebar.vue -->
 <template>
   <aside :class="['sidebar', { 'is-mobile': isMobile }]" v-if="showSidebar">
     <div class="sidebar-top">
@@ -10,11 +11,9 @@
       <SettingButton />
     </div>
   </aside>
-  <div class="overlay" v-if="showSidebar && isMobile" @click="closeSidebar"></div> <!-- 遮罩层 -->
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
 import NewChatButton from './NewChatButton.vue';
 import HistoryContainer from './HistoryContainer.vue';
 import SettingButton from './SettingButton.vue';
@@ -38,6 +37,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener('resize', handleResize);  // 清除监听
 });
+
 </script>
 
 <style scoped>
@@ -45,22 +45,8 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 260px;
+  width: 300px;
   min-width: 200px;
-  background-color: #f4f4f4;
-  z-index: 10; /* 确保在上层 */
-  transition: transform 0.3s ease;
-}
-
-.sidebar.is-mobile {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 80%;
-  max-width: 240px;
-  z-index: 100; /* 更高的层级确保在最上方 */
-  transform: translateX(0); /* 移动端时从左侧滑出 */
 }
 
 .sidebar-top {
@@ -76,14 +62,9 @@ onBeforeUnmount(() => {
   flex: 0 0 auto;
 }
 
-/* 遮罩层，用于阻止与后面内容交互 */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4); /* 半透明黑色遮罩 */
-  z-index: 99; /* 层级比侧边栏低 */
+@media (max-width: 768px) {
+  .sidebar-top{
+    display: none;
+  }
 }
 </style>

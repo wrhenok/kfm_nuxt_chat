@@ -7,12 +7,6 @@
       {{ chat.title }}
     </li>
   </ul>
-  <!-- <ul>
-    <li v-for="chat in chats" :key="chat.id"
-        @click="selectChat(chat.id)">
-      {{ chat.title }}
-    </li>
-  </ul> -->
 </template>
 
 <script setup>
@@ -27,8 +21,6 @@ const chats = ref([
   { id: 2, title: '对话 2' },
   { id: 3, title: '对话 3' },
   { id: 'abc5', title: 'abc5' },
-  { id: 2, title: '对话 2' },
-  { id: 3, title: '对话 3' },
 
 ]);
 import { useCurrentPageStore } from '~/store/currentPage';

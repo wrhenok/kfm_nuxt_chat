@@ -151,7 +151,6 @@ const result = computed(() => md.render(props.content));
   .assistant-message {
     font-display: block;
     overflow-wrap: break-all;
-    color: red;
     max-width: 90%;
     white-space: normal;
   }
