@@ -9,5 +9,11 @@ export const useSidebarStore = defineStore('sidebar', {
         toggle() {
             this.isVisible = !this.isVisible;
         },
+        hideSidebar() {
+            this.isVisible = false;
+        },
+        showSidebar() {
+            this.isVisible = true;
+        }
     },
 });

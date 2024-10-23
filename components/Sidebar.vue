@@ -1,43 +1,46 @@
 <template>
-  <aside :class="['sidebar', { 'is-mobile': isMobile }]" v-if="showSidebar">
+  <!-- 侧边栏 -->
+  <aside :class="['sidebar', { 'is-mobile': isMobile }]" v-if="sidebarVisible">
     <div class="sidebar-top">
+      <!-- 可以放置新聊天按钮 -->
       <NewChatButton />
     </div>
     <div class="sidebar-middle">
+      <!-- 历史记录容器 -->
       <HistoryContainer />
     </div>
     <div class="sidebar-bottom">
+      <!-- 设置按钮 -->
       <SettingButton />
     </div>
   </aside>
-  <div class="overlay" v-if="showSidebar && isMobile" @click="closeSidebar"></div> <!-- 遮罩层 -->
+
+  <!-- 当在移动端并且侧边栏显示时，显示遮罩层，点击遮罩层关闭侧边栏 -->
+  <div class="overlay" v-if="isMobile && sidebarVisible" @click="closeSidebar"></div>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { computed } from 'vue';
+import { useMediaQuery } from '@vueuse/core';
 import NewChatButton from './NewChatButton.vue';
 import HistoryContainer from './HistoryContainer.vue';
 import SettingButton from './SettingButton.vue';
+import { useSidebarStore } from '~/store/sidebar';
 
-const showSidebar = ref(true);  // 控制侧边栏显示
-const isMobile = ref(false);
+// 引入 Pinia store 来管理侧边栏状态
+const sidebarStore = useSidebarStore();
 
+// 使用计算属性从 Pinia 中获取侧边栏的显示状态
+const sidebarVisible = computed(() => sidebarStore.isVisible);
+
+// 检测是否是移动端
+const isMobile = useMediaQuery('(max-width: 768px)');
+
+// 关闭侧边栏的方法
 const closeSidebar = () => {
-  showSidebar.value = false;  // 点击遮罩层关闭侧边栏
+  sidebarStore.hideSidebar();
 };
 
-const handleResize = () => {
-  isMobile.value = window.innerWidth <= 768;
-};
-
-onMounted(() => {
-  handleResize();  // 初始化时检测是否为移动端
-  window.addEventListener('resize', handleResize);  // 监听窗口大小变化
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', handleResize);  // 清除监听
-});
 </script>
 
 <style scoped>
@@ -48,7 +51,7 @@ onBeforeUnmount(() => {
   width: 260px;
   min-width: 200px;
   background-color: #f4f4f4;
-  z-index: 10; /* 确保在上层 */
+  z-index: 10;
   transition: transform 0.3s ease;
 }
 
@@ -59,8 +62,8 @@ onBeforeUnmount(() => {
   height: 100vh;
   width: 80%;
   max-width: 240px;
-  z-index: 100; /* 更高的层级确保在最上方 */
-  transform: translateX(0); /* 移动端时从左侧滑出 */
+  z-index: 100;
+  transform: translateX(0);
 }
 
 .sidebar-top {
@@ -76,14 +79,14 @@ onBeforeUnmount(() => {
   flex: 0 0 auto;
 }
 
-/* 遮罩层，用于阻止与后面内容交互 */
+/* 遮罩层 */
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4); /* 半透明黑色遮罩 */
-  z-index: 99; /* 层级比侧边栏低 */
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 99;
 }
 </style>
