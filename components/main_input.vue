@@ -113,7 +113,7 @@ textarea {
 
 .send-button {
   padding: 6px;
-  background-color: cornflowerblue;
+  background-color: #dbeafe;
   border-radius: 50%; /* 圆形按钮 */
   border: none;
   cursor: pointer;
@@ -123,10 +123,11 @@ textarea {
 .send-button img {
   width: 16px;
   height: 16px;
+  
 }
 
 .send-button:hover {
-  background-color: #285bb5; /* 鼠标悬停时颜色变深 */
+  background-color: #3b82f6; /* 鼠标悬停时颜色变深 */
 }
 
 </style>

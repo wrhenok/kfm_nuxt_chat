@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   padding: 10px;
-  background-color: #ffffff;
+  background-color: #f4f4f4;
 }
 button {
   color: #fff;
