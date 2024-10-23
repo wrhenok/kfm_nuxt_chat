@@ -112,8 +112,8 @@ textarea {
 }
 
 .send-button {
-  padding: 6px;
-  background-color: #dbeafe;
+  padding: 7px;
+  background-color: #fff;
   border-radius: 50%; /* 圆形按钮 */
   border: none;
   cursor: pointer;
@@ -121,8 +121,8 @@ textarea {
 }
 
 .send-button img {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   
 }
 
